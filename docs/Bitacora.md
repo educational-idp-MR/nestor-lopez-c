@@ -154,7 +154,7 @@ Puede ayudar para evaluar que tanta gpu se consume
 
 **Captura de pantalla del dashboard:**
 
-> _[Inserta aquí la imagen del dashboard con los 4 paneles]_
+![alt text](image-4.png)
 
 ### 2.1.2. Visualizaciónes Adicionales (Con las metricas actuales)
 
@@ -163,19 +163,26 @@ Puede ayudar para evaluar que tanta gpu se consume
 **Propósito:**
 ```
 ¿Qué quieres analizar o mostrar? Menciona qué métrica(s) vas a usar
+Se quiere mostrar las request en una tabla de tal manera que se ordenen por tiempo
+
 
 
 ```
+
 
 **Título del panel:**
 ```
-
+Barras
 ```
 
 **Consulta (PromQL o LogQL):**
-```
-Consejo: Si usaste la interfaz de Grafana para crear el panel, puedes copiar la consulta que se muestra en la caja de texto de la seccion Code.
 
+```
+topk(10,
+sum by(uri) (rate(http_server_requests_seconds_sum{applicationName="nestor-lopez-c-monitoring"}[1m]))
+/
+sum by(uri) (rate(http_server_requests_seconds_count{applicationName="nestor-lopez-c-monitoring"}[1m]))
+)
 ```
 
 **Tipo de visualización:** 
@@ -184,23 +191,25 @@ Consejo: Si usaste la interfaz de Grafana para crear el panel, puedes copiar la 
 - [ ] Bar chart
 - [ ] Stat
 - [ ] Logs
-- [ ] Otro: _____
+- [ ] Otro: Table
 
 **Otros ajustes aplicados (colores, unidades, etc.) (opcional):**
 ```
 
 
+ se cambiaron los colores
 ```
 
 **Captura de pantalla:**
 
-> _[Inserta aquí la imagen del panel]_
 
+![alt text](image-3.png)
 **Análisis (2-3 frases):**
 ```
 ¿Qué conclusiones o patrones observas?
 
 
+Aca basicamente quiero mostrar en una tabla como la orden o el orden de las peticiones mirando o basandome en el tiempo. Mirando las que mas se demoran
 
 ```
 
@@ -211,26 +220,29 @@ Consejo: Si usaste la interfaz de Grafana para crear el panel, puedes copiar la 
 **Propósito:**
 ```
 ¿Qué quieres analizar o mostrar? Menciona qué métrica(s) vas a mostrar
-
+Aca se quiere mostrar los 10 endpoints que mas se demoran en realizar la consulta
 
 ```
 
 **Título del panel:**
 ```
-
+top 10 querys
 ```
 
 **Consulta (PromQL o LogQL):**
 ```
-Consejo: Si usaste la interfaz de Grafana para crear el panel, puedes copiar la consulta que se muestra en la caja de texto de la seccion Code.
-
+topk(10,
+sum by(uri) (rate(http_server_requests_seconds_sum{applicationName="nestor-lopez-c-monitoring"}[1m]))
+/
+sum by(uri) (rate(http_server_requests_seconds_count{applicationName="nestor-lopez-c-monitoring"}[1m]))
+)
 ```
 
 **Tipo de visualización:** 
 - [ ] Time series
 - [ ] Gauge
-- [ ] Bar chart
-- [ ] Stat
+- [  ] Bar chart
+- [ X ] Stat
 - [ ] Logs
 - [ ] Otro: _____
 
@@ -242,7 +254,7 @@ Consejo: Si usaste la interfaz de Grafana para crear el panel, puedes copiar la 
 
 **Captura de pantalla:**
 
-> _[Inserta aquí la imagen del panel]_
+![alt text](image-5.png)
 
 **Análisis (2-3 frases):**
 ```
@@ -251,7 +263,7 @@ Consejo: Si usaste la interfaz de Grafana para crear el panel, puedes copiar la 
 
 
 ```
-
+![alt text](image.png)
 ---
 
 ### 2.1.3. Análisis final del dashboard
@@ -271,10 +283,7 @@ Consejo: Si usaste la interfaz de Grafana para crear el panel, puedes copiar la 
 ### Análisis y propuesta de la métrica propia (en Java)
 
 **1. Nombre de la métrica:**
-```
-Ejemplo: url_shortener_urls_created_total
 
-```
 
 **2. Tipo de métrica:**
 - [ ] Counter
@@ -305,18 +314,16 @@ Ejemplo: url_shortener_urls_created_total
 - [ ] Gauge  
 - [ ] Stat  
 - [ ] Bar chart  
-- [ ] Otro: _____
+- [ X ] Otro:  TABLE
 
 **2. ¿Qué consulta PromQL vas a utilizar?**
 ```promql
-
 
 
 ```
 
 **3. ¿Cuál es el propósito de la visualización?**
 ```
-Provee una interpretación en palabras con el propósito de la visualización. Que te interesa ver en el panel?
 
 
 
@@ -328,7 +335,6 @@ Provee una interpretación en palabras con el propósito de la visualización. Q
 
 **Captura de pantalla del panel en Grafana:**
 
-> _[Inserta aquí la imagen del panel mostrando la métrica visualizada]_
 
 ---
 
