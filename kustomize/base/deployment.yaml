@@ -1,0 +1,69 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nestor-lopez-c-monitoring
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nestor-lopez-c-monitoring
+  labels:
+    app: nestor-lopez-c-monitoring
+  namespace: nestor-lopez-c-monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nestor-lopez-c-monitoring
+  template:
+    metadata:
+      labels:
+        app: nestor-lopez-c-monitoring
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/actuator/prometheus"
+        prometheus.io/port: "8080"
+    spec:
+      containers:
+      - name: nestor-lopez-c-monitoring
+        image: hello-world:latest #Workflows will update this image
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nestor-lopez-c-monitoring
+  labels:
+    app: nestor-lopez-c-monitoring
+  namespace: nestor-lopez-c-monitoring
+spec:
+  selector:
+    app: nestor-lopez-c-monitoring
+  ports:
+  - port: 80
+    targetPort: 8080
+    name: http
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nestor-lopez-c-monitoring-ingress
+  namespace: nestor-lopez-c-monitoring
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: nestor-lopez-c.obs-stack.eci-idp.click
+      http:
+        paths:
+          - path: /.*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: nestor-lopez-c-monitoring
+                port:
+                  number: 80
