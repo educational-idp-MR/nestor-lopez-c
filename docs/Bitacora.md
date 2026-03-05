@@ -17,19 +17,22 @@ Cuando acabes no olvides ayudarnos evaluando tu ⭐[experiencia](https://forms.o
 ## Etapa 1: Preparación del Ambiente
 
 ### 1.1. Información de la aplicación
-
+DNS: 
+https://nestor-lopez-c.obs-stack.eci-idp.click/api/
 ### 1.2. Verificación del despliegue
 
 **¿La aplicación se desplegó correctamente?** 
 
-- [ ] Sí
+- [ X ] Sí
 - [ ] No
 
 **Captura de pantalla de la aplicación funcionando:**
-
+![alt text](img/ApiCorriendo_1.png)
 > _[Inserta aquí la imagen de la aplicación corriendo en /api/]_
 
 ### 1.3. Observaciones y problemas encontrados (opcional)
+Me tarde un poco en encontrar el properties y me complique un poco en enteder y sacar el DNS
+
 
 ```
 
@@ -45,10 +48,10 @@ Cuando acabes no olvides ayudarnos evaluando tu ⭐[experiencia](https://forms.o
 
 **Endpoints probados:**
 
-- [ ] `GET /api/`
-- [ ] `POST /api/shorten`
-- [ ] `GET /api/{shortCode}`
-- [ ] `GET /api/urls`
+- [ X ] `GET /api/`
+- [ X ] `POST /api/shorten`
+- [ X ] `GET /api/{shortCode}`
+- [ X ] `GET /api/urls`
 
 
 ### 2.0.2. Análisis de dos métricas relevantes
@@ -57,11 +60,11 @@ Cuando acabes no olvides ayudarnos evaluando tu ⭐[experiencia](https://forms.o
 
 **Nombre de la métrica:**  
 ```
-
+http_server_requests_seconds_max{error="none",exception="none",method="POST",outcome="CLIENT_ERROR",status="415",uri="/api/shorten",} 0.0
 ```
 
 **Tipo de métrica:** 
-- [ ] Counter
+- [ X ] Counter
 - [ ] Gauge 
 - [ ] Histogram 
 - [ ] Summary
@@ -69,7 +72,7 @@ Cuando acabes no olvides ayudarnos evaluando tu ⭐[experiencia](https://forms.o
 **Descripción de qué información aporta:**
 ```
 
-
+Hay una  peticion de tipo post 
 
 ```
 
@@ -82,7 +85,7 @@ Ejemplo: Un aumento en peticiones HTTP podría influir en el uso de CPU
 
 **¿En que escenarios puede ayudar esta métrica?**
 ```
-
+Puede ayudar para ver que se sube o como se sube. Basicamente lo que se va posteando
 
 
 ```
@@ -90,6 +93,7 @@ Ejemplo: Un aumento en peticiones HTTP podría influir en el uso de CPU
 **¿Qué etiquetas (labels) se utilizan para agrupar los datos?**
 ```
 Ejemplo: uri, method, status, instance, job, etc.
+uri
 
 
 
@@ -102,18 +106,21 @@ Ejemplo: uri, method, status, instance, job, etc.
 **Nombre de la métrica:**  
 ```
 
+# TYPE system_cpu_usage gauge
+system_cpu_usage 0.010492528456600314
+
 ```
 
 **Tipo de métrica:** 
 - [ ] Counter
-- [ ] Gauge 
+- [ x ] Gauge 
 - [ ] Histogram 
 - [ ] Summary
 
 **Descripción de qué información aporta:**
 ```
 
-
+Se puede observar el uso de la GPU
 
 ```
 
@@ -127,14 +134,13 @@ Ejemplo: Un aumento en peticiones HTTP podría influir en el uso de CPU
 **¿En que escenarios puede ayudar esta métrica?**
 ```
 
-
+Puede ayudar para evaluar que tanta gpu se consume 
 
 ```
 
 **¿Qué etiquetas (labels) se utilizan para agrupar los datos?**
 ```
-Ejemplo: uri, method, status, instance, job, etc.
-
+--NA
 
 
 ```
